@@ -17,15 +17,27 @@ function counterReducer(st, ac) {
   }
   throw new Error(ac + "Isn't Defined In Count Reducer.");
 }
-
-
 function App() {
+  const [details, setDetails] = useState(["moaaz", 25, "egypt"]);
   const [count, dispatch] = useReducer(counterReducer, 0);
   const { num, incNum, decNum } = useInc();
   const authContext = useContext(AuthContext);
+  function changeNm() {
+    details.push("teacher");
+    details.push("male");
+    setDetails([...details]);
+  }
+  console.log("1-app-render");
   return (
     <div className="container">
       <Header />
+
+      {details.map((e, i) => (
+        <p key={i}>{e}</p>
+      ))}
+      <button className="btn btn-info text-light" onClick={changeNm}>
+        Change Name
+      </button>
       <div>{authContext.auth.email ? "Welcome" : <Login />}</div>
       <div className="bg-light p-3 my-2">
         <h2>useReducer:</h2>
